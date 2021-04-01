@@ -140,7 +140,12 @@ class ModelCommand extends Command
     protected function getOptions()
     {
         return [
-            ['extend', 'i', InputOption::VALUE_NONE, 'Generate a resource controller class.'],
+            [
+                'extend',
+                'i',
+                InputOption::VALUE_NONE,
+                'Generate a resource controller class.'
+            ],
         ];
     }
 
@@ -216,8 +221,14 @@ class ModelCommand extends Command
     protected function replaceNamespace(&$stub, $name)
     {
         $stub = str_replace(
-            ['DummyNamespace', 'DummyRootNamespace'],
-            [$this->getNamespace($name), $this->rootNamespace()],
+            [
+                'DummyNamespace',
+                'DummyRootNamespace'
+            ],
+            [
+                $this->getNamespace($name),
+                $this->rootNamespace()
+            ],
             $stub
         );
 
@@ -320,7 +331,13 @@ FROM
 
         $use = count(explode('\\', $Extend)) >= 2 ? "" : 'use ' . $this->qualifyClass($Extend) . "Model;";
 
-        $stub = str_replace(['DummyUseNamespace', 'DummyExtendClass'], [$use, $class], $stub);
+        $stub = str_replace([
+            'DummyUseNamespace',
+            'DummyExtendClass'
+        ], [
+            $use,
+            $class
+        ], $stub);
         return $stub;
     }
 
@@ -353,7 +370,11 @@ FROM
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the model'],
+            [
+                'name',
+                InputArgument::REQUIRED,
+                'The name of the model'
+            ],
         ];
     }
 
@@ -365,11 +386,19 @@ FROM
     protected function getTableName($name)
     {
         $tableNameFormClassName = str_replace($this->getNamespace($name) . '\\', '', $name) . 's';
-        return toUnderScore((!empty($this->getTableNameInput())) ? $this->getTableNameInput() : $tableNameFormClassName);
+        return self::toUnderScore((!empty($this->getTableNameInput())) ? $this->getTableNameInput() : $tableNameFormClassName);
     }
 
     protected function getDatabaseName()
     {
         return config('database.connections.mysql.database');
+    }
+
+    protected function toUnderScore($str)
+    {
+        $dstr = preg_replace_callback('/([A-Z]+)/', function ($matchs) {
+            return '_' . strtolower($matchs[0]);
+        }, $str);
+        return trim(preg_replace('/_{2,}/', '_', $dstr), '_');
     }
 }
