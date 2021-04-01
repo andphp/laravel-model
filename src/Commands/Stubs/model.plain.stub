@@ -1,0 +1,21 @@
+<?php
+
+namespace DummyNamespace;
+
+DummyUseNamespace
+
+/**
+ * Class DummyClass
+ * @package DummyNamespace
+DummyComments
+ */
+class DummyClass extends DummyExtendClass
+{
+
+
+       protected $table = 'DummyTable';
+       protected $fillable = [
+           DummyFields
+       ];
+
+}

@@ -1,0 +1,23 @@
+{
+    "name": "andphp/laravel-model",
+    "description": "dev",
+    "type": "library",
+    "require": {
+        "laravel/framework": "^8.12"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Da Xiong",
+            "email": "10000@andphp.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "AndPHP\\Console\\": "src/"
+        }
+    },
+    "extra": {
+    }
+}
